@@ -3,7 +3,12 @@ import readline
 import signal
 import sys
 
+import neuron
+
 cmdlist = "help quit create connect activate list"
+
+# Neurons are stored in a dictionary to find them from their name
+neural_network = {}
 
 def complete(text, state):
     for cmd in cmdlist.split():
@@ -42,6 +47,24 @@ def help(cmd):
     else:
         other_cmd(cmd, True)
 
+def nb_args(args):
+    return len(args.split())
+
+def cmd_equals(cmd, cmd_name):
+    return cmd == cmd_name or cmd.startswith(cmd_name + " ")
+
+def neuron_create(arg):
+    if nb_args(arg) != 1:
+        help("create")
+    else:
+        neural_network[arg] = neuron.Neuron(arg)
+        print("Neuron " + arg + " created.")
+
+def neuron_list(arg):
+    if nb_args(arg) != 0:
+        help("list")
+    else:
+        print('Neurons: ' + ', '.join(k for k,v in neural_network.items()))
 
 def command_process():
     try:
@@ -52,10 +75,14 @@ def command_process():
         return 0
     if not cmd:
         pass
-    elif cmd == "help" or cmd.startswith("help "):
+    elif cmd_equals(cmd, "help"):
         help(cmd[4:].strip())
     elif cmd == "quit":
         return 0
+    elif cmd_equals(cmd, "create"):
+        neuron_create(cmd[6:].strip())
+    elif cmd_equals(cmd, "list"):
+        neuron_list(cmd[4:].strip())
     else:
         other_cmd(cmd)
     return 1
