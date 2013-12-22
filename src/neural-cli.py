@@ -44,7 +44,7 @@ def help(cmd):
         print("Creates a connection from  NEURON1 TO NEURON2.")
     elif cmd == "show":
         print("Usage: show NEURON1 [NEURON2 ... [NEURONn]]")
-        print("Display information about NEURON.")
+        print("Display information about neurons.")
     elif cmd == "list":
         print("List available neurons.")
     else:
@@ -80,7 +80,7 @@ def neuron_show(arg):
     if nb_args(arg) < 1:
         help("show")
     else:
-        for n in arg.split():
+        for n in set(arg.split()):
             if n in neural_network:
                 print(neural_network[n])
             else:
