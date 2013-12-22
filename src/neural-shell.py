@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 import readline
+import signal
+import sys
 
 cmdlist = "help quit create connect activate list"
 
@@ -36,13 +38,18 @@ def help(cmd):
         print("Usage: connect NEURON1 NEURON2")
         print("Creates a connection from  NEURON1 TO NEURON2.")
     elif cmd == "list":
-        print("List availables neurons.")
+        print("List available neurons.")
     else:
         other_cmd(cmd, True)
 
 
 def command_process():
-    cmd = raw_input('$ ')
+    try:
+        cmd = raw_input('$ ')
+    except:
+        # And EOF may have been sent, we exit cleanly
+        print("")
+        return 0
     if not cmd:
         pass
     elif cmd == "help" or cmd.startswith("help "):
@@ -55,6 +62,11 @@ def command_process():
 
 readline.parse_and_bind("tab: complete")
 readline.set_completer(complete)
+
+# Handle interrupt signals (Ctrl+C) to avoid input errors
+def signal_handler(signal, frame):
+    sys.exit(0)
+signal.signal(signal.SIGINT, signal_handler)
 
 if __name__ == "__main__":
     while command_process():
