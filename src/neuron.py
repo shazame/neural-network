@@ -4,10 +4,10 @@ class Neuron:
     def __init__(self, name):
         self.name = name
         self.output = []
-        self.state = 0
+        self.state = 0.0
 
     def __str__(self):
-        return "(%s) state: %d\toutput: %s" % (self.name, self.state,
+        return "(%s) state: %f\toutput: %s" % (self.name, self.state,
         ', '.join(n.name for n in self.output))
 
     def connect(self, neuron):
@@ -34,7 +34,7 @@ if __name__ == "__main__":
     n2.connect(n3)
 
     print("Set the initial state of n1 to 2:")
-    n1.send(2)
+    n1.send(2.3)
     print(n1)
     print(n2)
     print(n3)
