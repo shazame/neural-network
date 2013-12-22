@@ -12,7 +12,8 @@ class Neuron:
 
     def connect(self, neuron):
         """ Connects the neuron's output to another neuron. """
-        self.output += [neuron]
+        if not neuron in self.output:
+            self.output += [neuron]
 
     def send(self, stimulus):
         """ Send a stimuli to the neuron. """
