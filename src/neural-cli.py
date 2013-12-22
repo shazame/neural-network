@@ -42,6 +42,9 @@ def help(cmd):
     elif cmd == "connect":
         print("Usage: connect NEURON1 NEURON2")
         print("Creates a connection from  NEURON1 TO NEURON2.")
+    elif cmd == "activate":
+        print("Usage: activate NEURON")
+        print("Activates a neuron, sending stimuli on its outputs.")
     elif cmd == "show":
         print("Usage: show NEURON1 [NEURON2 ... [NEURONn]]")
         print("Display information about neurons.")
@@ -80,6 +83,16 @@ def neuron_connect(arg):
             return
         neural_network[n1].connect(neural_network[n2])
 
+def neuron_activate(arg):
+    if nb_args(arg) != 1:
+        help("activate")
+    else:
+        if arg in neural_network:
+            neural_network[arg].discharge()
+            print("Neuron " + arg + " discharged.")
+        else:
+            print(arg + " does not exist.")
+
 def neuron_show(arg):
     if nb_args(arg) < 1:
         help("show")
@@ -116,6 +129,8 @@ def command_process():
         neuron_create(cmd[6:].strip())
     elif cmd_equals(cmd, "connect"):
         neuron_connect(cmd[7:].strip())
+    elif cmd_equals(cmd, "activate"):
+        neuron_activate(cmd[8:].strip())
     elif cmd_equals(cmd, "list"):
         neuron_list(cmd[4:].strip())
     elif cmd_equals(cmd, "show"):
