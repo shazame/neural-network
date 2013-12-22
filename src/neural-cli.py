@@ -57,8 +57,11 @@ def neuron_create(arg):
     if nb_args(arg) != 1:
         help("create")
     else:
-        neural_network[arg] = neuron.Neuron(arg)
-        print("Neuron " + arg + " created.")
+        if arg in neural_network:
+            print(arg + " already exists.")
+        else:
+            neural_network[arg] = neuron.Neuron(arg)
+            print("Neuron " + arg + " created.")
 
 def neuron_list(arg):
     if nb_args(arg) != 0:
