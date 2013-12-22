@@ -64,7 +64,10 @@ def neuron_list(arg):
     if nb_args(arg) != 0:
         help("list")
     else:
-        print('Neurons: ' + ', '.join(k for k,v in neural_network.items()))
+        if neural_network:
+            print('Neurons: ' + ', '.join(k for k,v in neural_network.items()))
+        else:
+            print('There are no neurons.')
 
 def command_process():
     try:
