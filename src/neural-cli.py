@@ -86,6 +86,13 @@ def neuron_show(arg):
             else:
                 print(n + " does not exist.")
 
+def neuron_connect(arg):
+    if nb_args(arg) != 2:
+        help("connect")
+    else:
+        n1, n2 = arg.split()
+        neural_network[n1].connect(neural_network[n2])
+
 def command_process():
     try:
         cmd = raw_input('$ ')
@@ -105,6 +112,8 @@ def command_process():
         neuron_list(cmd[4:].strip())
     elif cmd_equals(cmd, "show"):
         neuron_show(cmd[4:].strip())
+    elif cmd_equals(cmd, "connect"):
+        neuron_connect(cmd[7:].strip())
     else:
         other_cmd(cmd)
     return 1
