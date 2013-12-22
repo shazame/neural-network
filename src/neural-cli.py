@@ -5,7 +5,7 @@ import sys
 
 import neuron
 
-cmdlist = "help quit create connect activate show list"
+cmdlist = "help quit create connect activate send show list"
 
 # Neurons are stored in a dictionary to find them from their name
 neural_network = {}
@@ -45,6 +45,9 @@ def help(cmd):
     elif cmd == "activate":
         print("Usage: activate NEURON")
         print("Activates a neuron, sending stimuli on its outputs.")
+    elif cmd == "send":
+        print("Usage: send NEURON VAL")
+        print("Send a stimulus to a neuron with value VAL.")
     elif cmd == "show":
         print("Usage: show NEURON1 [NEURON2 ... [NEURONn]]")
         print("Display information about neurons.")
@@ -93,6 +96,21 @@ def neuron_activate(arg):
         else:
             print(arg + " does not exist.")
 
+def neuron_send(arg):
+    if nb_args(arg) != 2:
+        help("send")
+    else:
+        n, v = arg.split()
+        if not n in neural_network:
+            print(n + " does not exist.")
+        else:
+            try:
+                val = float(v)
+            except:
+                print(v + " should be a decimal number.")
+                return
+            neural_network[n].send(val)
+
 def neuron_show(arg):
     if nb_args(arg) < 1:
         help("show")
@@ -131,6 +149,8 @@ def command_process():
         neuron_connect(cmd[7:].strip())
     elif cmd_equals(cmd, "activate"):
         neuron_activate(cmd[8:].strip())
+    elif cmd_equals(cmd, "send"):
+        neuron_send(cmd[4:].strip())
     elif cmd_equals(cmd, "list"):
         neuron_list(cmd[4:].strip())
     elif cmd_equals(cmd, "show"):
