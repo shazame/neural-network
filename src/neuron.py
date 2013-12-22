@@ -19,7 +19,7 @@ class Neuron:
         self.state += stimulus
 
     def discharge(self):
-        """ Discharge the neuron, sending stimuli on its output. """
+        """ Discharge the neuron, sending stimuli on its outputs. """
         for o in self.output:
             o.send(self.state)
         self.state = 0

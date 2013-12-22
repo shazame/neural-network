@@ -67,14 +67,12 @@ def neuron_create(arg):
                 neural_network[n] = neuron.Neuron(n)
                 print("Neuron " + n + " created.")
 
-def neuron_list(arg):
-    if nb_args(arg) != 0:
-        help("list")
+def neuron_connect(arg):
+    if nb_args(arg) != 2:
+        help("connect")
     else:
-        if neural_network:
-            print('Neurons: ' + ', '.join(k for k,v in neural_network.items()))
-        else:
-            print('There are no neurons.')
+        n1, n2 = arg.split()
+        neural_network[n1].connect(neural_network[n2])
 
 def neuron_show(arg):
     if nb_args(arg) < 1:
@@ -86,12 +84,14 @@ def neuron_show(arg):
             else:
                 print(n + " does not exist.")
 
-def neuron_connect(arg):
-    if nb_args(arg) != 2:
-        help("connect")
+def neuron_list(arg):
+    if nb_args(arg) != 0:
+        help("list")
     else:
-        n1, n2 = arg.split()
-        neural_network[n1].connect(neural_network[n2])
+        if neural_network:
+            print('Neurons: ' + ', '.join(k for k,v in neural_network.items()))
+        else:
+            print('There are no neurons.')
 
 def command_process():
     try:
@@ -108,12 +108,12 @@ def command_process():
         return 0
     elif cmd_equals(cmd, "create"):
         neuron_create(cmd[6:].strip())
+    elif cmd_equals(cmd, "connect"):
+        neuron_connect(cmd[7:].strip())
     elif cmd_equals(cmd, "list"):
         neuron_list(cmd[4:].strip())
     elif cmd_equals(cmd, "show"):
         neuron_show(cmd[4:].strip())
-    elif cmd_equals(cmd, "connect"):
-        neuron_connect(cmd[7:].strip())
     else:
         other_cmd(cmd)
     return 1
