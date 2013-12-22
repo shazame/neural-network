@@ -52,6 +52,7 @@ def help(cmd):
         print("Usage: show NEURON1 [NEURON2 ... [NEURONn]]")
         print("Display information about neurons.")
     elif cmd == "list":
+        print("Usage: list")
         print("List available neurons.")
     elif cmd == "dump":
         print("Usage: dump")
@@ -160,10 +161,10 @@ def command_process():
         neuron_activate(cmd[8:].strip())
     elif cmd_equals(cmd, "send"):
         neuron_send(cmd[4:].strip())
-    elif cmd_equals(cmd, "list"):
-        neuron_list(cmd[4:].strip())
     elif cmd_equals(cmd, "show"):
         neuron_show(cmd[4:].strip())
+    elif cmd_equals(cmd, "list"):
+        neuron_list(cmd[4:].strip())
     elif cmd_equals(cmd, "dump"):
         neuron_dump(cmd[4:].strip())
     else:
