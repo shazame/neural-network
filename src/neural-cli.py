@@ -72,6 +72,12 @@ def neuron_connect(arg):
         help("connect")
     else:
         n1, n2 = arg.split()
+        if not n1 in neural_network:
+            print(n1 + " does not exist.")
+            return
+        if not n2 in neural_network:
+            print(n2 + " does not exist.")
+            return
         neural_network[n1].connect(neural_network[n2])
 
 def neuron_show(arg):
