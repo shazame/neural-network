@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import readline
 
-cmdlist = "help quit list connect activate"
+cmdlist = "help quit create connect activate list"
 
 def complete(text, state):
     for cmd in cmdlist.split():
@@ -13,11 +13,11 @@ def complete(text, state):
 
 def other_cmd(cmd, in_help = False):
     if cmd not in cmdlist.split():
-        print("\"" + cmd + "\" is not a valid command.")
+        print(cmd + ": is not a valid command.")
     elif in_help:
-        print("\"" + cmd + "\" is not documented yet.")
+        print(cmd + ": is not documented yet.")
     else:
-        print("\"" + cmd + "\" is not implemented yet.")
+        print(cmd + ": is not implemented yet.")
 
 def help(cmd):
     if cmd.startswith("help"):
@@ -25,10 +25,18 @@ def help(cmd):
         cmd = None
     if not cmd:
         print("Available commands are:")
-        print("\t" + cmdlist)
+        print("    " + cmdlist)
         print("Type \"help COMMAND\" to have more information about a specific command.")
     elif cmd == "quit":
         print("Quit this command interpreter.")
+    elif cmd == "create":
+        print("Usage: create NEURON")
+        print("Creates a new neuron named NEURON.")
+    elif cmd == "connect":
+        print("Usage: connect NEURON1 NEURON2")
+        print("Creates a connection from  NEURON1 TO NEURON2.")
+    elif cmd == "list":
+        print("List availables neurons.")
     else:
         other_cmd(cmd, True)
 
@@ -37,7 +45,7 @@ def command_process():
     cmd = raw_input('$ ')
     if not cmd:
         pass
-    elif cmd.startswith("help"):
+    elif cmd == "help" or cmd.startswith("help "):
         help(cmd[4:].strip())
     elif cmd == "quit":
         return 0
