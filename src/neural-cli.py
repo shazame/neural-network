@@ -5,7 +5,7 @@ import sys
 
 import neuron
 
-cmdlist = "help quit create connect activate send show list"
+cmdlist = "help quit create connect activate send show list dump"
 
 # Neurons are stored in a dictionary to find them from their name
 neural_network = {}
@@ -53,6 +53,9 @@ def help(cmd):
         print("Display information about neurons.")
     elif cmd == "list":
         print("List available neurons.")
+    elif cmd == "dump":
+        print("Usage: dump")
+        print("Dump every neurons information.")
     else:
         other_cmd(cmd, True)
 
@@ -130,6 +133,12 @@ def neuron_list(arg):
         else:
             print('There are no neurons.')
 
+def neuron_dump(arg):
+    if nb_args(arg) != 0:
+        help("dump")
+    else:
+        neuron_show(' '.join(k for k,v in neural_network.items()))
+
 def command_process():
     try:
         cmd = raw_input('$ ')
@@ -155,6 +164,8 @@ def command_process():
         neuron_list(cmd[4:].strip())
     elif cmd_equals(cmd, "show"):
         neuron_show(cmd[4:].strip())
+    elif cmd_equals(cmd, "dump"):
+        neuron_dump(cmd[4:].strip())
     else:
         other_cmd(cmd)
     return 1
