@@ -37,8 +37,8 @@ def help(cmd):
     elif cmd == "quit":
         print("Quit this command interpreter.")
     elif cmd == "create":
-        print("Usage: create NEURON")
-        print("Creates a new neuron named NEURON.")
+        print("Usage: create NEURON1 [NEURON2 ... [NEURONn]]")
+        print("Creates a new neurons with their name.")
     elif cmd == "connect":
         print("Usage: connect NEURON1 NEURON2")
         print("Creates a connection from  NEURON1 TO NEURON2.")
@@ -57,14 +57,15 @@ def cmd_equals(cmd, cmd_name):
     return cmd == cmd_name or cmd.startswith(cmd_name + " ")
 
 def neuron_create(arg):
-    if nb_args(arg) != 1:
+    if nb_args(arg) < 1:
         help("create")
     else:
-        if arg in neural_network:
-            print(arg + " already exists.")
-        else:
-            neural_network[arg] = neuron.Neuron(arg)
-            print("Neuron " + arg + " created.")
+        for n in arg.split():
+            if n in neural_network:
+                print(n + " already exists.")
+            else:
+                neural_network[n] = neuron.Neuron(n)
+                print("Neuron " + n + " created.")
 
 def neuron_list(arg):
     if nb_args(arg) != 0:
