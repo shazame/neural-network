@@ -28,11 +28,11 @@ Connect n1 to n2, n1 to n3 and n2 to n3:
 
 Charge n1, n2 and n3 to 2.3, 4.1 and 0.23 respectively:
 
-`$ send n1 2.3`
+`$ charge n1 2.3`
 
-`$ send n2 4.1`
+`$ charge n2 4.1`
 
-`$ send n3 0.23`
+`$ charge n3 0.23`
 
 Dump neurons information to see their initial state:
 

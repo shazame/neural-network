@@ -3,26 +3,42 @@
 class Neuron:
     def __init__(self, name):
         self.name = name
-        self.output = []
+        self.inputNeurones = []
+        self.inputFactor = []
+        self.outputNeurones = []
         self.state = 0.0
 
     def __str__(self):
-        return "(%s) state: %f\toutput: %s" % (self.name, self.state,
-        ', '.join(n.name for n in self.output))
+        return "(%s) state: %f\toutput: %s \tinput: %s" % (self.name, self.state,
+        ', '.join(n.name for n in self.outputNeurones),
+        ', '.join(n.name for n in self.inputNeurones))
 
-    def connect(self, neuron):
+    def connect(self, neuron, factor = 0.5):
         """ Connects the neuron's output to another neuron. """
-        if not neuron in self.output:
-            self.output += [neuron]
+        if not neuron in self.outputNeurones:
+            self.outputNeurones += [neuron]
+            neuron.connectFrom(self, factor)
 
-    def send(self, stimulus):
-        """ Send a stimuli to the neuron. """
+    def connectFrom(self, neuron, factor = 0.5):
+        """ Connects the neuron's input to another neuron. """
+        if not neuron in self.inputNeurones:
+            self.inputNeurones += [neuron]
+            self.inputFactor += [factor]
+            neuron.connect(self, factor)
+
+    def charge(self, stimulus):
+        """ Charge the neuron """
         self.state += stimulus
+
+    def send(self, neuron, stimulus):
+        """ Send a stimuli to the neuron. """
+        index = self.inputNeurones.index(neuron)
+        self.state += stimulus * self.inputFactor[index]
 
     def discharge(self):
         """ Discharge the neuron, sending stimuli on its outputs. """
-        for o in self.output:
-            o.send(self.state)
+        for o in self.outputNeurones:
+            o.send(self, self.state)
         self.state = 0
 
 if __name__ == "__main__":
@@ -34,7 +50,7 @@ if __name__ == "__main__":
     n2.connect(n3)
 
     print("Set the initial state of n1 to 2:")
-    n1.send(2.3)
+    n1.charge(2.3)
     print(n1)
     print(n2)
     print(n3)

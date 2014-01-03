@@ -44,10 +44,10 @@ def help(cmd):
         print("Creates a connection from  NEURON1 TO NEURON2.")
     elif cmd == "activate":
         print("Usage: activate NEURON")
-        print("Activates a neuron, sending stimuli on its outputs.")
-    elif cmd == "send":
-        print("Usage: send NEURON VAL")
-        print("Send a stimulus to a neuron with value VAL.")
+        print("Activates a neuron, charging stimuli on its outputs.")
+    elif cmd == "charge":
+        print("Usage: charge NEURON VAL")
+        print("charge a neuron with value VAL.")
     elif cmd == "show":
         print("Usage: show NEURON1 [NEURON2 ... [NEURONn]]")
         print("Display information about neurons.")
@@ -100,9 +100,9 @@ def neuron_activate(arg):
         else:
             print(arg + " does not exist.")
 
-def neuron_send(arg):
+def neuron_charge(arg):
     if nb_args(arg) != 2:
-        help("send")
+        help("charge")
     else:
         n, v = arg.split()
         if not n in neural_network:
@@ -113,7 +113,7 @@ def neuron_send(arg):
             except:
                 print(v + " should be a decimal number.")
                 return
-            neural_network[n].send(val)
+            neural_network[n].charge(val)
 
 def neuron_show(arg):
     if nb_args(arg) < 1:
@@ -159,8 +159,8 @@ def command_process():
         neuron_connect(cmd[7:].strip())
     elif cmd_equals(cmd, "activate"):
         neuron_activate(cmd[8:].strip())
-    elif cmd_equals(cmd, "send"):
-        neuron_send(cmd[4:].strip())
+    elif cmd_equals(cmd, "charge"):
+        neuron_charge(cmd[6:].strip())
     elif cmd_equals(cmd, "show"):
         neuron_show(cmd[4:].strip())
     elif cmd_equals(cmd, "list"):
