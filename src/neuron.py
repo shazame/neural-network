@@ -26,14 +26,22 @@ class Neuron:
             self.inputFactor += [factor]
             neuron.connect(self, factor)
 
+    def activationFunction(self):
+        """ Function of activation for this neurone """
+            
     def charge(self, stimulus):
         """ Charge the neuron """
         self.state += stimulus
+        #self.activationFunction()
 
     def send(self, neuron, stimulus):
         """ Send a stimuli to the neuron. """
         index = self.inputNeurones.index(neuron)
         self.state += stimulus * self.inputFactor[index]
+        print(self.state)
+        if self.state < 0 :
+            self.state = 0
+        #self.activationFunction()
 
     def discharge(self):
         """ Discharge the neuron, sending stimuli on its outputs. """
@@ -41,19 +49,34 @@ class Neuron:
             o.send(self, self.state)
         self.state = 0
 
+class ThresholdNeuron(Neuron):
+    def __init__(self, name, threshold):
+        Neuron.__init__(self, name)
+        self.threshold = threshold
+
+    def activationFunction(self):
+        """ Function of activation for this neurone """
+        if self.state > self.threshold :
+            self.discharge()
+
+
 if __name__ == "__main__":
     n1 = Neuron("n1")
-    n2 = Neuron("n2")
-    n3 = Neuron("n3")
+    n2 = ThresholdNeuron("n2",1)
+    n3 = ThresholdNeuron("n3",2)
+    n4 = Neuron("n4")
     n1.connect(n2)
     n1.connect(n3)
-    n2.connect(n3)
+    n2.connect(n3,-1)
+    n2.connect(n4)
+    n3.connect(n4)
 
     print("Set the initial state of n1 to 2:")
     n1.charge(2.3)
     print(n1)
     print(n2)
     print(n3)
+    print(n4)
 
     print("")
     print("Discharge n1:")
@@ -61,6 +84,7 @@ if __name__ == "__main__":
     print(n1)
     print(n2)
     print(n3)
+    print(n4)
 
     print("")
     print("Discharge n2:")
@@ -68,3 +92,4 @@ if __name__ == "__main__":
     print(n1)
     print(n2)
     print(n3)
+    print(n4)
