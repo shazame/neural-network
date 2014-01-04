@@ -7,6 +7,7 @@ class Neuron:
         self.inputFactor = []
         self.outputNeurones = []
         self.state = 0.0
+        self.nextState = 0.0
 
     def __str__(self):
         return "(%s) state: %f\toutput: %s \tinput: %s" % (self.name, self.state,
@@ -26,28 +27,31 @@ class Neuron:
             self.inputFactor += [factor]
             neuron.connect(self, factor)
 
+    def updateState(self):
+        """ Put the neuron into the next state"""
+        self.state = self.nextState
+
     def activationFunction(self):
         """ Function of activation for this neurone """
             
     def charge(self, stimulus):
         """ Charge the neuron """
-        self.state += stimulus
-        #self.activationFunction()
+        self.nextState += stimulus
 
     def send(self, neuron, stimulus):
         """ Send a stimuli to the neuron. """
         index = self.inputNeurones.index(neuron)
-        self.state += stimulus * self.inputFactor[index]
-        print(self.state)
-        if self.state < 0 :
-            self.state = 0
-        #self.activationFunction()
+        self.nextState += stimulus * self.inputFactor[index]
+        if self.nextState < 0 :
+            self.nextState = 0
 
     def discharge(self):
         """ Discharge the neuron, sending stimuli on its outputs. """
         for o in self.outputNeurones:
             o.send(self, self.state)
-        self.state = 0
+        self.nextState -= self.state
+        if self.nextState < 0 :
+            self.nextState = 0
 
 class ThresholdNeuron(Neuron):
     def __init__(self, name, threshold):
