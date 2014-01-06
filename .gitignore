@@ -1,2 +1,10 @@
 *.py[cod]
 __pycache__
+
+
+# Ignore latex output files #
+*.log
+*.out
+*.pdf
+*.toc
+*.aux
