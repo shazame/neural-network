@@ -6,6 +6,7 @@ class Neuron:
         self.inputNeurones = []
         self.inputFactor = []
         self.outputNeurones = []
+        self.outputActions = []
         self.state = 0.0
         self.nextState = 0.0
 
@@ -13,6 +14,9 @@ class Neuron:
         return "(%s) state: %f\toutput: %s \tinput: %s" % (self.name, self.state,
         ', '.join(n.name for n in self.outputNeurones),
         ', '.join(n.name for n in self.inputNeurones))
+
+    def addAction(self, action):
+        self.outputActions += [action]
 
     def connect(self, neuron, factor = 0.5):
         """ Connects the neuron's output to another neuron. """
@@ -47,6 +51,8 @@ class Neuron:
 
     def discharge(self):
         """ Discharge the neuron, sending stimuli on its outputs. """
+        for a in self.outputActions:
+            a.activate()
         for o in self.outputNeurones:
             o.send(self, self.state)
         self.nextState -= self.state
