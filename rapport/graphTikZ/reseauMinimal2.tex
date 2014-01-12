@@ -1,0 +1,25 @@
+\begin{tikzpicture}[scale=0.5]
+ \tikzset{directed/.style={->}} 
+  \node[] (A1) at (0,0) {A1};
+  \node[] (A2) at (12,0) {A2};
+  \node[draw, circle, very thick, color=green] (N1) at (0,10) {N1};
+  \node[draw, circle, very thick, color=green] (N2) at (12,10) {N2};
+  \node[draw, circle, very thick, color=red] (N3) at (4,8) {N3};
+  \node[draw, circle, very thick, color=red] (N4) at (8,8) {N4};
+  \node[draw, circle, very thick, color=green] (N5) at (0,4) {N5};
+  \node[draw, circle, very thick, color=green] (N6) at (12,4) {N6};
+  \node[draw, very thick] (S1) at (0,14) {S1};
+  \node[draw, very thick] (S2) at (12,14) {S2};
+  \draw[very thick, directed] (S1) -- (N1);
+  \draw[very thick, directed] (S1) -- (N2);
+  \draw[very thick, directed] (S2) -- (N1);
+  \draw[very thick, directed] (S2) -- (N2);
+  \draw[very thick, directed] (N1) -- (N3);
+  \draw[very thick, directed] (N2) -- (N4);
+  \draw[very thick, directed] (N3) -- (N6);
+  \draw[very thick, directed] (N4) -- (N5);
+  \draw[very thick, directed] (N1) -- (N5);
+  \draw[very thick, directed] (N2) -- (N6);
+  \draw[very thick, directed] (N5) -- (A1);
+  \draw[very thick, directed] (N6) -- (A2);
+\end{tikzpicture}

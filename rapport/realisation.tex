@@ -1,0 +1,41 @@
+\section{Réalisation}
+Dans cette partie, nous allons nous intéresser à plusieurs réseaux de neurones
+en regardant pour chaque en quoi son comportement peut être assimilé à une 
+décision.
+
+
+\subsection{Premier réseau de neurones}
+\paragraph{}
+Ce premier réseau \ref{reseau1} n'est constitué que de six neurones. Les deux
+premiers neurones (N1 et N2) se chargent de recevoir les stimuli. Ensuite ils 
+vont à la fois activer un neurone qui aura pour tâche de déclencher une 
+action et un neurone qui se chargera d'inhiber l'autre branche. 
+
+\begin{figure}[!h]
+  \begin{center}
+    \input{graphTikZ/reseauMinimal1.tex}
+  \end{center}
+  \caption{Un réseau de neurones minimun (En vert les neurones stimulant, en rouge les inhibiteur)}
+  \label{reseau1}
+\end{figure}
+
+\paragraph{}
+En fonction des stimuli reçus, ce réseau va bien prendre la décision 
+d'envoyer soit l'action A1, soit l'action A2. Cependant le 
+stimuli S1 conduira toujours à l'action A1 et le stimuli S2 à 
+l'action A2.
+
+Ceci est problématique car le comportement du réseau ne peut pas 
+alors être assimilé à une prise de décision.
+
+\subsection{Deuxiéme réseau de neurones}
+
+\begin{figure}[!h]
+  \begin{center}
+    \input{graphTikZ/reseauMinimal2.tex}
+  \end{center}
+  \caption{Un réseau de neurones minimun (En vert les neurones stimulant, en rouge les inhibiteur)}
+  \label{reseau1}
+\end{figure}
+
+
