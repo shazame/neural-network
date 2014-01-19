@@ -29,6 +29,19 @@ Ceci est problématique car le comportement du réseau ne peut pas
 alors être assimilé à une prise de décision.
 
 \subsection{Deuxiéme réseau de neurones}
+\paragraph{}
+En rajoutant une arête entre le S1 et N2 et une autre entre S2 et N1, cela
+permet d'éviter que le stimulus 1 conduise toujours à l'action 1 et que le
+stimulus 2 conduise à l'action 2. Le choix de l'action en fonction du stimulus
+va dépendre des poids des connexions entre les stimulus et les deux premiers
+neurones N1 et N2.
+
+\paragraph{}
+Dans le cas où on reçoit le stimulus 1, si la connexion entre N1 et S1 est
+plus forte que la connexion entre N2 et S1 alors l'action 1 est choisie. 
+Par contre si la connexion entre N1 et S1 est plus faible que celle entre 
+N2 et S2 alors l'action 2 est effectuée. Le même raisonnement peut être 
+appliqué au stimulus 2.
 
 \begin{figure}[!h]
   \begin{center}
@@ -38,4 +51,7 @@ alors être assimilé à une prise de décision.
   \label{reseau1}
 \end{figure}
 
-
+\paragraph{}
+Avec ce réseau les stimulus peuvent conduire à n'importe quelle des deux
+actions. Une fois les poids établis, le réseau enverra toujours les mêmes
+actions en réponse aux stimuli données.
