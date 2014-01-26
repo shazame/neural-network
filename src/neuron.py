@@ -7,6 +7,8 @@ class Neuron:
     self.inputFactor = []
     self.outputNeurones = []
     self.outputActions = []
+    self.inputStimuli = []
+    self.stimulusFactors = []
     self.state = 0.0
     self.nextState = 0.0
     self.inhibitorFactor = (-1.0 if isInhibitor else 1.0)
@@ -40,21 +42,26 @@ class Neuron:
 
   def updateState(self):
     """ Put the neuron into the next state"""
+    if self.nextState < 0 :
+      self.nextState = 0  
     self.state = self.nextState
 
   def activationFunction(self):
     """ Function of activation for this neurone """
       
-  def charge(self, stimulus):
+  def charge(self, factor, stimulus=None):
     """ Charge the neuron """
-    self.nextState += stimulus
+    if stimulus == None:
+      self.nextState += factor
+    else:
+      index = self.inputStimuli.index(stimulus)
+      self.nextState += factor * self.stimulusFactors[index]
 
   def send(self, neuron, stimulus):
     """ Send a stimuli to the neuron. """
     index = self.inputNeurones.index(neuron)
     self.nextState += stimulus * self.inputFactor[index]
-    if self.nextState < 0 :
-      self.nextState = 0
+   
 
   def discharge(self):
     """ Discharge the neuron, sending stimuli on its outputs. """
@@ -65,6 +72,17 @@ class Neuron:
     self.nextState -= self.state
     if self.nextState < 0 :
       self.nextState = 0
+
+  def addInputStimulus(self, stimulus, factor = 1):
+    """ Add a new input stimulus to the neuron """
+    if factor > 0 :
+      if not stimulus in self.inputStimuli:
+        self.inputStimuli += [stimulus]
+        self.stimulusFactors += [factor]
+        stimulus.addNeuron(self, factor)
+    else:
+      print "Factor have to be positive"
+
 
 class ThresholdNeuron(Neuron):
   def __init__(self, name, threshold, isInhibitor = False):

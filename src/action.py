@@ -3,6 +3,6 @@ class Action:
         self.name = name
 
     def activate(self):
-        print()
+        print("")
         print(self.name + " has been activated")
 

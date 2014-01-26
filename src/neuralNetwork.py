@@ -28,7 +28,7 @@ class NeuralNetwork:
 
   def display(self):
     """ Display the neural network"""
-    print()
+    print("")
     for n in self.neurones:
       print(n)
 
