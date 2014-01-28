@@ -1,11 +1,11 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 import readline
 import signal
 import sys
 
 import neuron
 
-cmdlist = "help quit create connect activate send show list dump"
+cmdlist = "help quit create connect activate charge show list dump"
 
 # Neurons are stored in a dictionary to find them from their name
 neural_network = {}
