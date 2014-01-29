@@ -20,70 +20,58 @@ présents dans notre conception d'un réseau de neurones:\\
 \end{description}
 
 \paragraph{}
-Ces trois éléments sont donc la base de notre réseau, cependant nous avons
-décidé de rendre générique notre réseau et ainsi notre réseau stockera une liste
-de stimuli et de réactions.
+Ces trois éléments sont donc la base de notre réseau. Ainsi notre classe correspondant
+à un réseau de neurones stockera une liste de stimuli, une liste de réactions et une
+liste des neurones constituant le réseau.
 
 \paragraph{}
 Il a ensuite fallu déterminer la façon de parcourir tous les neurones pour les
-mettre à jour. Cette réflexion a fait émerger diverses techniques cependant deux
-avaient un effet similaire avec une base commune (les stimuli sont le départ du
-calcul du réseau) mais modifiaient la façon de considérer chaque
-neurone:\\
+mettre à jour. Cette réflexion a fait émerger deux méthodes. Ces methodes
+avaient un impacte sur l'implementation de la classe neurone. \\
 
 \begin{enumerate}
-  \item La première consistait à considérer que chaque neurone connait les
-    neurones qui lui envoient un signal. Il peut donc les interroger, obtenant
-    ainsi les informations nécessaires au calcul de sa sortie.
-  \item La seconde considérait que chaque neurone avait connaissance des neurones
-    concernés par sa sortie, il pouvait donc leur signaler qu'une valeur avait
-    été mise à jour.
+  \item La première consistait en partant des réactions à remonter de façon
+    récursive le réseau de neurones afin de récupérer les informations pour
+    calculer si oui ou non les réactions ont été activitées. Ces méthodes impliquées
+    que chaque neurone est accés à l'ensemble de ces entrées afin de les
+    interroger pour savoir si ils ont été activés.
+  \item La seconde consistait en partant des stimuli à propager les informations
+    d'activation jusqu'aux réactions. Dans cette méthode quand un neurone a calculé
+    si oui ou non il a été activé, il prévient alors l'ensemble de ces sorties de
+    son status. Un neurone recevant une information d'une de ces entrées la
+    sauvegarde et si il a reçu l'ensemble des états de ces entrées alors il calcul
+    son propre état et le progage de la même maniére.
 \end{enumerate}
 
-La seconde solution était bloquante pour l'apprentissage, étant donné que les
-poids stockés par le neurone concernaient les autres neurones, il nécessitait
-donc un lien autre que ceux acceptés par le standard de neurone.
-
-Cela a donc mis en évidence l'impossibilité de cette méthode, elle a donc été
-naturellement écartée.
-
-\paragraph{}
-
+La seconde solution a été choisi car elle semblait plus intuitif sur le
+façon dont le réseau est parcouru (des stimuli vers les réactions). Avec
+l'implémentation choisi, on remarque pour que le réseau soit bien valide,
+il ne doit pas avoir des cycles dans le réseau. En effet, si il existe un
+cycle il devient alors impossible de calculer les états des neurones
+appartenant au cycle car chaque neurone a besoin des états des autres neurones du
+cycle.
 
 \paragraph{}
 Ne souhaitant pas attribuer aux neurones des caractéristiques qui ne leur étaient
 pas nécessaires, nous nous sommes demandé ce qui était intrinsèque au
 fonctionnement de l'entité et ce qui relevait de la particularité de notre
-réseau.
-
-\paragraph{}
-Après réflexion nous sommes arrivé à déterminer comme cœur du neurone, les
+réseau. Après réflexion nous sommes arrivé à déterminer comme cœur du neurone, les
 parties suivantes:\\
 
 \begin{description}
+<<<<<<< HEAD
   \item[Nom] Chaque neurone est doté d'un nom qui permettra de le distinguer
     lors de l'envoi de chaque valeur vers les neurones concernés
-  \item[Poids] Chaque neurone va pondérer chacune de ses entrées en fonction
-    d'un dictionnaire contenant le poids attribué à chaque neurone voisin
-  \item[Output] Liste des neurones de sortie pour permettre à la fin de chaque
-    calcul, d'activer ces derniers qui vont tenter de calculer leur propre
-    sortie
+  \item[Poids] Chaque neurone va pondérer chacune de ses entrées. Ces poids
+    sont stockés dans un dictionnaire avec comme clé le nom du neurone et
+    comme valeur le poids qui lui est associé.
+  \item[Sorties] La liste des neurones et des reactions connecté à la sortie
+    du neurone.
+  \item[Inhibiteur] Permet de savoir si le neurone est un inhibiteur où non.
+  \item[Taux d'apprentissage] Le taux de variation des poids du neurone.
 \end{description}
 
-Il est apparu après le début de la phase d'implémentation qu'il était nécessaire
-de rajouter certaines variables, pour ne pas activer un neurone qui n'aurait pas
-toutes ses valeurs en entrée actives.
-Pour cela nous avons du rajouter deux variables:\\
+\paragraph{}
+%TODO Apprentissage
 
-\begin{description}
-  \item[Somme] Cette valeur accumule la somme des entrées depuis la dernière
-    activation totale, c'est à dire qu'à chaque appel de la part des neurones
-    précédents, elle va rajouter la valeur en entrée pondérée dans sa valeur
-    globale et va ensuite la décharger lors de son actualisation personnelle. 
-  \item[Nombre d'entrées manquantes] Il est facile de connaître le nombre
-    d'entrées
-    totales grâce au dictionnaire des poids qui va nous donner par sa taille, ce
-    nombre, cependant il est nécessaire de savoir si toute les valeurs en entrée
-    attendues sont disponibles ou pas. Si oui, alors le neurone calcule sa
-    sortie et envoie sa sortie aux neurones connectés.
-  \end{description}
+
