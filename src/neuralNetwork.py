@@ -12,7 +12,7 @@ class NeuralNetwork:
 
   def initialize(self):
     for n in self.neurons:
-      n.initialize()
+      n.reinitialize()
 
   def addStimulus(self, newStimulus):
     """ Add the stimulus given in parameter to the neural network. """

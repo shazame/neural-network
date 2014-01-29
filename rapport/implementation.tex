@@ -30,10 +30,10 @@ mettre à jour. Cette réflexion a fait émerger deux méthodes. Ces methodes
 avaient un impacte sur l'implementation de la classe neurone. \\
 
 \begin{enumerate}
-  \item La première consistait en partant des réactions à remonter de façon 
-    récursive le réseau de neurones afin de récupérer les informations pour 
-    calculer si oui ou non les réactions ont été activitées. Ces méthodes impliquées 
-    que chaque neurone est accés à l'ensemble de ces entrées afin de les 
+  \item La première consistait en partant des réactions à remonter de façon
+    récursive le réseau de neurones afin de récupérer les informations pour
+    calculer si oui ou non les réactions ont été activitées. Ces méthodes impliquées
+    que chaque neurone est accés à l'ensemble de ces entrées afin de les
     interroger pour savoir si ils ont été activés.
   \item La seconde consistait en partant des stimuli à propager les informations
     d'activation jusqu'aux réactions. Dans cette méthode quand un neurone a calculé
@@ -43,11 +43,11 @@ avaient un impacte sur l'implementation de la classe neurone. \\
     son propre état et le progage de la même maniére.
 \end{enumerate}
 
-La seconde solution a été choisi car elle semblait plus intuitif sur le 
+La seconde solution a été choisi car elle semblait plus intuitif sur le
 façon dont le réseau est parcouru (des stimuli vers les réactions). Avec
 l'implémentation choisi, on remarque pour que le réseau soit bien valide,
 il ne doit pas avoir des cycles dans le réseau. En effet, si il existe un
-cycle il devient alors impossible de calculer les états des neurones 
+cycle il devient alors impossible de calculer les états des neurones
 appartenant au cycle car chaque neurone a besoin des états des autres neurones du
 cycle.
 
@@ -59,10 +59,12 @@ réseau. Après réflexion nous sommes arrivé à déterminer comme cœur du neu
 parties suivantes:\\
 
 \begin{description}
-  \item[Nom] Nous avons décidé d'attribuer à chaque neurone un nom. Ce dernier
-    permet de le différencier.
-  \item[Poids] Un dictionnaire avec comme clé le nom du neurone et comme valeur
-    le poids qui lui est associé.
+<<<<<<< HEAD
+  \item[Nom] Chaque neurone est doté d'un nom qui permettra de le distinguer
+    lors de l'envoi de chaque valeur vers les neurones concernés
+  \item[Poids] Chaque neurone va pondérer chacune de ses entrées. Ces poids
+    sont stockés dans un dictionnaire avec comme clé le nom du neurone et
+    comme valeur le poids qui lui est associé.
   \item[Sorties] La liste des neurones et des reactions connecté à la sortie
     du neurone.
   \item[Inhibiteur] Permet de savoir si le neurone est un inhibiteur où non.
@@ -71,3 +73,5 @@ parties suivantes:\\
 
 \paragraph{}
 %TODO Apprentissage
+
+
