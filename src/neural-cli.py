@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python
 import readline
 import signal
 import sys
@@ -9,6 +9,10 @@ cmdlist = "help quit create connect activate charge show list dump"
 
 # Neurons are stored in a dictionary to find them from their name
 neural_network = {}
+
+# Workaround to have input working with python2
+try: input = raw_input
+except NameError: pass
 
 def complete(text, state):
     for cmd in cmdlist.split():
@@ -142,7 +146,7 @@ def neuron_dump(arg):
 
 def command_process():
     try:
-        cmd = raw_input('$ ')
+        cmd = input('$ ')
     except:
         # And EOF may have been sent, we exit cleanly
         print("")
