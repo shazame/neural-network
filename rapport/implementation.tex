@@ -27,25 +27,25 @@ liste des neurones constituant le réseau.
 \paragraph{}
 Il a ensuite fallu déterminer la façon de parcourir tous les neurones pour les
 mettre à jour. Cette réflexion a fait émerger deux méthodes. Ces methodes
-avaient un impacte sur l'implementation de la classe neurone. \\
+avaient un impact sur l'implémentation de la classe neurone.\\
 
 \begin{enumerate}
   \item La première consistait en partant des réactions à remonter de façon
     récursive le réseau de neurones afin de récupérer les informations pour
-    calculer si oui ou non les réactions ont été activitées. Ces méthodes impliquées
-    que chaque neurone est accés à l'ensemble de ces entrées afin de les
-    interroger pour savoir si ils ont été activés.
+    calculer si oui ou non les réactions ont été activitées. Cet méthode impliquait
+    que chaque neurone ait accès à l'ensemble de ses entrées afin de les
+    interroger pour savoir si leurs neurones ont été activés.
   \item La seconde consistait en partant des stimuli à propager les informations
     d'activation jusqu'aux réactions. Dans cette méthode quand un neurone a calculé
     si oui ou non il a été activé, il prévient alors l'ensemble de ces sorties de
-    son status. Un neurone recevant une information d'une de ces entrées la
-    sauvegarde et si il a reçu l'ensemble des états de ces entrées alors il calcul
+    son statut. Un neurone recevant une information d'une de ces entrées la
+    sauvegarde et s'il a reçu l'ensemble des états de ces entrées alors il calcule
     son propre état et le progage de la même maniére.
 \end{enumerate}
 
-La seconde solution a été choisi car elle semblait plus intuitif sur le
+La seconde solution a été choisie car elle semblait plus intuitive sur le
 façon dont le réseau est parcouru (des stimuli vers les réactions). Avec
-l'implémentation choisi, on remarque pour que le réseau soit bien valide,
+l'implémentation choisie, on remarque que, pour que le réseau soit valide,
 il ne doit pas avoir des cycles dans le réseau. En effet, si il existe un
 cycle il devient alors impossible de calculer les états des neurones
 appartenant au cycle car chaque neurone a besoin des états des autres neurones du
@@ -60,11 +60,11 @@ parties suivantes:\\
 
 \begin{description}
   \item[Nom] Chaque neurone est doté d'un nom qui permettra de le distinguer
-    lors de l'envoi de chaque valeur vers les neurones concernés
+    lors de l'envoi de chaque valeur vers les neurones concernés.
   \item[Poids] Chaque neurone va pondérer chacune de ses entrées. Ces poids
     sont stockés dans un dictionnaire avec comme clé le nom du neurone et
     comme valeur le poids qui lui est associé.
-  \item[Sorties] La liste des neurones et des reactions connecté à la sortie
+  \item[Sorties] La liste des neurones et des réactions connectées à la sortie
     du neurone.
   \item[Inhibiteur] Permet de savoir si le neurone est un inhibiteur où non.
   \item[Taux d'apprentissage] Le taux de variation des poids du neurone.
