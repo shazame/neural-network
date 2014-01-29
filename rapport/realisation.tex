@@ -64,3 +64,23 @@ appliqué au stimulus 2.
 Avec ce réseau les stimuli peuvent conduire à n'importe quelle des deux
 actions. Une fois les poids établis, le réseau enverra toujours les mêmes
 actions en réponse aux stimuli données.
+
+\subsection{Apprentissage}
+\paragraph{}
+Pour tester la méthode d'apprentissage mise en place, des poids initiaux ont
+été définis (voir Figure~\ref{reseau3}). Deux testes basés sur ce réseau ont
+été réalisés. On remarque que l'ordre et la fréquence des stimuli finissent par
+influencer l'action retourné par le réseau. En effet, quand un stimulus est
+répété plusieurs fois celà a pour effet de renforcer les connexions 
+menant à l'action lié à ce stimulus. Ensuite quand les deux stimuli sont 
+activés en même temps c'est l'action lié aux stimuli qui a été renforcé qui
+est retourné.
+\begin{figure}[!h]
+  \begin{center}
+    \input{graphTikZ/reseauMinimal3.tex}
+  \end{center}
+  \caption{Poids initiaux}
+  \label{reseau3}
+\end{figure}
+
+
