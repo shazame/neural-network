@@ -10,7 +10,7 @@ class Stimulus:
             self.outputNeurones += [neuron]
             neuron.addInputStimulus(self,factor)
         else:
-          print "Factor have to be positive"
+          print("Factor have to be positive")
 
     def charge(self, factor):
         """ Charge all neuron which are connected to the stimulus"""

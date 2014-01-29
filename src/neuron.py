@@ -28,7 +28,7 @@ class Neuron:
         self.outputNeurones += [neuron]
         neuron.connectFrom(self, factor)
     else :
-      print "Factor have to be positive"
+      print("Factor have to be positive")
 
   def connectFrom(self, neuron, factor = 0.5):
     """ Connects the neuron's input to another neuron. """
@@ -38,7 +38,7 @@ class Neuron:
         self.inputFactor += [factor]
         neuron.connect(self, factor)
     else:
-      print "Factor have to be positive"
+      print("Factor have to be positive")
 
   def updateState(self):
     """ Put the neuron into the next state"""
@@ -81,7 +81,7 @@ class Neuron:
         self.stimulusFactors += [factor]
         stimulus.addNeuron(self, factor)
     else:
-      print "Factor have to be positive"
+      print("Factor have to be positive")
 
 
 class ThresholdNeuron(Neuron):
