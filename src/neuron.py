@@ -47,10 +47,9 @@ class Neuron:
   def send(self, senderName, value):
     """ Update current neuron state and sends neurons's ouputValue 
     to all its ouput when every input has been taken into account."""
-    inputValue = value * self.inputWeight[senderName]
-    self.state += inputValue
+    self.state += value * self.inputWeight[senderName]
     # Save value sent by each input
-    self.inputValues[senderName] = inputValue
+    self.inputValues[senderName] = value
     self.remainingEntries -= 1
     if self.remainingEntries == 0:
       returnValue = self.computeActivation()

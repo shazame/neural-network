@@ -11,12 +11,12 @@ s1 = stimulus.Stimulus("s1")
 s2 = stimulus.Stimulus("s2")
 
 #Neurones
-n1 = neuron.ThresholdNeuron("n1", 0.5, 0.0      )
-n2 = neuron.ThresholdNeuron("n2", 0.5, 0.0      )
-n3 = neuron.ThresholdNeuron("n3", 1  , 0.0, True)
-n4 = neuron.ThresholdNeuron("n4", 1  , 0.0, True)
-n5 = neuron.ThresholdNeuron("n5", 0.5, 0.0      )
-n6 = neuron.ThresholdNeuron("n6", 0.5, 0.0      )
+n1 = neuron.ThresholdNeuron("n1", 0.4, 0.3      )
+n2 = neuron.ThresholdNeuron("n2", 0.4, 0.3      )
+n3 = neuron.ThresholdNeuron("n3", 1  , 0.1, True)
+n4 = neuron.ThresholdNeuron("n4", 1  , 0.1, True)
+n5 = neuron.ThresholdNeuron("n5", 0.2, 0.1      )
+n6 = neuron.ThresholdNeuron("n6", 0.2, 0.1      )
 
 #Actions
 a1 = action.Action("a1")
@@ -37,7 +37,7 @@ s2.connect(n2, 0.3)
 
 n5.connect(a1, 1)
 n6.connect(a2, 1)
- 
+
 #Neural Network
 network = neuralNetwork.NeuralNetwork()
 network.addStimulus(s1)
@@ -52,11 +52,3 @@ network.addAction(a1)
 network.addAction(a2)
 
 network.initialize()
-
-network.run([], True)
-print("")
-network.run(["s1"], True)
-print("")
-network.run(["s2"], True)
-print("")
-network.run(["s1", "s2"], True)
