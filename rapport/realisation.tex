@@ -1,15 +1,19 @@
 \section{Réalisation}
 Dans cette partie, nous allons nous intéresser à plusieurs réseaux de neurones
-en étudiant pour chacun en quoi son comportement peut être assimilé à une 
+en étudiant pour chacun en quoi son comportement peut être assimilé à une
 décision.
 
 
 \subsection{Premier réseau de neurones}
 \paragraph{}
 Ce premier réseau \ref{reseau1} n'est constitué que de six neurones. Les deux
-premiers neurones (N1 et N2) se chargent de recevoir les stimuli. Ensuite ils 
-vont à la fois activer un neurone qui aura pour tâche de déclencher une 
-action et un neurone qui se chargera d'inhiber l'autre branche. 
+premiers neurones (N1 et N2) se chargent de recevoir les stimuli. Ensuite ils
+vont à la fois activer un neurone qui aura pour tâche de déclencher une
+action et un neurone qui se chargera d'inhiber l'autre branche. Les neurones
+N3 et N4 ont donc comme rôle d'inhiber chacun une branche. Ce mécanisme a été
+mis en place afin d'éviter que les deux actions s'active en même temps. 
+Les neurones N5 et N6 sont chacun relié à une action et la déclenche quand
+ils s'activent.
 
 \begin{figure}[!h]
   \begin{center}
@@ -20,13 +24,18 @@ action et un neurone qui se chargera d'inhiber l'autre branche.
 \end{figure}
 
 \paragraph{}
-En fonction des stimuli reçus, ce réseau va bien prendre la décision 
-d'envoyer soit l'action A1, soit l'action A2. Cependant le 
-stimuli S1 conduira toujours à l'action A1 et le stimuli S2 à 
+Afin que les deux actions ne se déclenchent pas en même temps, certaines
+contraintes sur les poids des liaisons doivent être respectées. 
+
+\paragraph{}
+En fonction des stimuli reçus, ce réseau va bien prendre la décision
+d'envoyer soit l'action A1, soit l'action A2. Cependant le
+stimuli S1 conduira toujours à l'action A1 et le stimuli S2 à
 l'action A2.
 
-Ceci est problématique car le comportement du réseau ne peut donc pas 
-être assimilé à une prise de décision.
+Ceci est problématique car le comportement du réseau ne peut donc pas
+être assimilé à une prise de décision. En effet, le comportement du réseau
+est défini à l'avance: un stimuli donné conduira toujours à la même action.
 
 \subsection{Deuxième réseau de neurones}
 \paragraph{}
@@ -38,9 +47,9 @@ neurones N1 et N2.
 
 \paragraph{}
 Dans le cas où on reçoit le stimulus 1, si la connexion entre N1 et S1 est
-plus forte que la connexion entre N2 et S1 alors l'action 1 est choisie. 
-Par contre si la connexion entre N1 et S1 est plus faible que celle entre 
-N2 et S2 alors l'action 2 est effectuée. Le même raisonnement peut être 
+plus forte que la connexion entre N2 et S1 alors l'action 1 est choisie.
+Par contre si la connexion entre N1 et S1 est plus faible que celle entre
+N2 et S2 alors l'action 2 est effectuée. Le même raisonnement peut être
 appliqué au stimulus 2.
 
 \begin{figure}[!h]
