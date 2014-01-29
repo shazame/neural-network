@@ -21,35 +21,34 @@ présents dans notre conception d'un réseau de neurones:\\
 
 \paragraph{}
 Ces trois éléments sont donc la base de notre réseau. Ainsi notre classe correspondant
-à un réseau de neurones stockera une liste de stimuli, une liste de réactions et une
+à un réseau de neurones stocke une liste de stimuli, une liste de réactions et une
 liste des neurones constituant le réseau.
 
 \paragraph{}
 Il a ensuite fallu déterminer la façon de parcourir tous les neurones pour les
-mettre à jour. Cette réflexion a fait émerger deux méthodes. Ces methodes
-avaient un impacte sur l'implementation de la classe neurone. \\
+mettre à jour. Cette réflexion a fait émerger deux méthodes. Ces méthodes
+avaient un impacte sur l'implémentation de la classe neurone. \\
 
 \begin{enumerate}
-  \item La première consistait en partant des réactions à remonter de façon
+  \item La première consistait, en partant des réactions, à remonter de façon
     récursive le réseau de neurones afin de récupérer les informations pour
-    calculer si oui ou non les réactions ont été activitées. Ces méthodes impliquées
-    que chaque neurone est accés à l'ensemble de ces entrées afin de les
-    interroger pour savoir si ils ont été activés.
-  \item La seconde consistait en partant des stimuli à propager les informations
+    calculer si oui ou non les réactions ont été activées. Cette méthode implique
+    que chaque neurone ait accès à l'ensemble de ses entrées afin de les
+    interroger et déterminer lesquelles ont été activées.
+  \item La seconde consistait, en partant des stimuli, à propager les informations
     d'activation jusqu'aux réactions. Dans cette méthode quand un neurone a calculé
     si oui ou non il a été activé, il prévient alors l'ensemble de ces sorties de
-    son status. Un neurone recevant une information d'une de ces entrées la
+    son statut. Un neurone recevant une information d'une de ces entrées la
     sauvegarde et si il a reçu l'ensemble des états de ces entrées alors il calcul
-    son propre état et le progage de la même maniére.
+    son propre état et le propage de la même manière.
 \end{enumerate}
 
-La seconde solution a été choisi car elle semblait plus intuitif sur le
-façon dont le réseau est parcouru (des stimuli vers les réactions). Avec
-l'implémentation choisi, on remarque pour que le réseau soit bien valide,
-il ne doit pas avoir des cycles dans le réseau. En effet, si il existe un
-cycle il devient alors impossible de calculer les états des neurones
-appartenant au cycle car chaque neurone a besoin des états des autres neurones du
-cycle.
+La seconde solution a été choisi car elle semblait plus intuitive dans la
+manière de parcourir le réseau (des stimuli vers les réactions). Avec
+l'implémentation choisie, on remarque que la validité du réseau est
+conditionnée par l'absence des cycles. En effet, s'il existe un cycle il
+devient alors impossible de calculer les états des neurones appartenant au
+cycle car chaque neurone a besoin des états des autres neurones du cycle.
 
 \paragraph{}
 Ne souhaitant pas attribuer aux neurones des caractéristiques qui ne leur étaient
@@ -59,15 +58,15 @@ réseau. Après réflexion nous sommes arrivé à déterminer comme cœur du neu
 parties suivantes:\\
 
 \begin{description}
-  \item[Nom] Chaque neurone est doté d'un nom qui permettra de le distinguer
+  \item[Nom]: chaque neurone est doté d'un nom qui permet de le distinguer
     lors de l'envoi de chaque valeur vers les neurones concernés
-  \item[Poids] Chaque neurone va pondérer chacune de ses entrées. Ces poids
+  \item[Poids]: chaque neurone va pondérer chacune de ses entrées. Ces poids
     sont stockés dans un dictionnaire avec comme clé le nom du neurone et
     comme valeur le poids qui lui est associé.
-  \item[Sorties] La liste des neurones et des reactions connecté à la sortie
-    du neurone.
-  \item[Inhibiteur] Permet de savoir si le neurone est un inhibiteur où non.
-  \item[Taux d'apprentissage] Le taux de variation des poids du neurone.
+  \item[Sorties]: la liste des neurones et des réactions connectées à la
+    sortie du neurone.
+  \item[Inhibiteur]: permet de savoir si le neurone est un inhibiteur ou non.
+  \item[Taux d'apprentissage]: le taux de variation des poids du neurone.
 \end{description}
 
 \paragraph{}
