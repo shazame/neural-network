@@ -1,0 +1,15 @@
+\begin{tikzpicture}[scale=0.5]
+ \tikzset{directed/.style={->}} 
+  \node[color=blue] (A1) at (0,0) {A1};
+  \node[color=blue] (A2) at (5,0) {A2};
+  \node[draw, circle, very thick, color=green] (N1) at (0,3) {N1};
+  \node[draw, circle, very thick, color=green] (N2) at (5,3) {N2};
+  \node[draw, very thick, color=red] (S1) at (0,7) {S1};
+  \node[draw, very thick, color=red] (S2) at (5,7) {S2};
+  \draw[very thick, directed] (S1) -- (N1);
+  \draw[very thick, directed] (S2) -- (N1);
+  \draw[very thick, directed] (S1) -- (N2);
+  \draw[very thick, directed] (S2) -- (N2);
+  \draw[very thick, directed] (N1) -- (A1);
+  \draw[very thick, directed] (N2) -- (A2);
+\end{tikzpicture}
