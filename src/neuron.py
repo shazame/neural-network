@@ -15,15 +15,17 @@ class Neuron:
     str(self.inputWeight))
 
   def initialize(self):
-    # Normalize weight
+    self.normalizeWeights()
+
+    # Init number of entries
+    self.remainingEntries = len(self.inputWeight)
+
+  def normalizeWeights(self):
     weightSum = 0
     for _, v in self.inputWeight.items():
       weightSum += v
     for k, _ in self.inputWeight.items():
       self.inputWeight[k] /= weightSum
-
-    # Init number of entries
-    self.remainingEntries = len(self.inputWeight)
 
   def connect(self, newOutput, weight):
     """ Connects a neuron to a new output. """
