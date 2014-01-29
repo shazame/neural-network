@@ -41,11 +41,14 @@ neurone:\\
 \end{enumerate}
 
 La seconde solution était bloquante pour l'apprentissage, étant donné que les
-poids stockés par le neurone concernent les autres, il nécessitait donc un lien
-autre que ceux acceptés par le standard de neurone.
+poids stockés par le neurone concernaient les autres neurone, il nécessitait
+donc un lien autre que ceux acceptés par le standard de neurone.
+
+Cela a donc mis en évidence l'impossibilité de cette méthode, elle a donc été
+naturellement écarté.
 
 \paragraph{}
-[A finir]
+
 
 \paragraph{}
 Ne souhaitant pas attribuer aux neurones des caractéristiques qui ne leur étaient
@@ -58,6 +61,28 @@ Après réflexion nous sommes arrivé à déterminer comme cœur du neurone, les
 parties suivantes:\\
 
 \begin{description}
-  \item[Nom] Nous avons décidé d'attribuer à chaque neurone un nom. Ce dernier
-    est utilisé au moment de l'attribution
+  \item[Nom] Chaque neurone est doté d'un nom qui permettra de le distinguer
+    lors de l'envoi de chaque valeur vers les neurones concernés
+  \item[Poids] Chaque neurone va pondérer chacune de ses entrées en fonction
+    d'un dictionnaire contenant le poids attribué à chaque neurone voisine
+  \item[Output] Liste des neurones de sortie pour permettre à la fin de chaque
+    calcul, d'activer ces derniers qui vont tenter de calculer leur propre
+    sortie
 \end{description}
+
+Il est apparu après le début de la phase d'implémentation qu'il était nécessaire
+de rajouter certaines variables, pour ne pas activer un neurone qui n'aurait pas
+toute ses valeurs en entrée active.
+Pour cela nous avons du rajouter deux variables:\\
+
+\begin{description}
+  \item[Somme] Cette valeur accumule la somme des entrées depuis la dernière
+    activation totale, c'est à dire qu'à chaque appel de la part des neurones
+    précédents, elle va rajouter la valeur en entrée pondéré dans sa valeur
+    globale et va ensuite la déchargé lors de son actualisation personnelle. 
+  \item[Nombre d'entrée manquante] Il est facile de connaître le nombre d'entrée
+    totale grâce au dictionnaire des poids qui va nous donner par sa taille, ce
+    nombre, cependant il est nécessaire de savoir si toute les valeurs en entrée
+    attendues sont disponibles ou pas. Si oui, alors le neurone calcule sa
+    sortie et envoi sa sortie aux neurones connectés.
+  \end{description}
