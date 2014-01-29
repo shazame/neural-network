@@ -11,12 +11,12 @@ s1 = stimulus.Stimulus("s1")
 s2 = stimulus.Stimulus("s2")
 
 #Neurones
-n1 = neuron.ThresholdNeuron("n1",0.5)
-n2 = neuron.ThresholdNeuron("n2",0.5)
-n3 = neuron.ThresholdNeuron("n3",1, 0, True)
-n4 = neuron.ThresholdNeuron("n4",1, 0, True)
-n5 = neuron.ThresholdNeuron("n5",0.5)
-n6 = neuron.ThresholdNeuron("n6",0.5)
+n1 = neuron.ThresholdNeuron("n1", 0.5, 0.0      )
+n2 = neuron.ThresholdNeuron("n2", 0.5, 0.0      )
+n3 = neuron.ThresholdNeuron("n3", 1  , 0.0, True)
+n4 = neuron.ThresholdNeuron("n4", 1  , 0.0, True)
+n5 = neuron.ThresholdNeuron("n5", 0.5, 0.0      )
+n6 = neuron.ThresholdNeuron("n6", 0.5, 0.0      )
 
 #Actions
 a1 = action.Action("a1")
