@@ -26,27 +26,27 @@ liste des neurones constituant le réseau.
 
 \paragraph{}
 Il a ensuite fallu déterminer la façon de parcourir tous les neurones pour les
-mettre à jour. Cette réflexion a fait émerger deux méthodes. Ces méthodes
-avaient un impacte sur l'implémentation de la classe neurone. \\
+mettre à jour. Cette réflexion a fait émerger deux méthodes. Ces methodes
+avaient un impact sur l'implémentation de la classe neurone.\\
 
 \begin{enumerate}
   \item La première consistait, en partant des réactions, à remonter de façon
     récursive le réseau de neurones afin de récupérer les informations pour
-    calculer si oui ou non les réactions ont été activées. Cette méthode implique
+    calculer si oui ou non les réactions ont été activées. Cet méthode impliquait
     que chaque neurone ait accès à l'ensemble de ses entrées afin de les
-    interroger et déterminer lesquelles ont été activées.
+    interroger pour savoir si leurs neurones ont été activés.
   \item La seconde consistait, en partant des stimuli, à propager les informations
     d'activation jusqu'aux réactions. Dans cette méthode quand un neurone a calculé
     si oui ou non il a été activé, il prévient alors l'ensemble de ces sorties de
     son statut. Un neurone recevant une information d'une de ces entrées la
-    sauvegarde et si il a reçu l'ensemble des états de ces entrées alors il calcul
-    son propre état et le propage de la même manière.
+    sauvegarde et si il a reçu l'ensemble des états de ces entrées alors il
+    calcule son propre état et le propage de la même manière.
 \end{enumerate}
 
-La seconde solution a été choisi car elle semblait plus intuitive dans la
+La seconde solution a été choisie car elle semblait plus intuitive dans la
 manière de parcourir le réseau (des stimuli vers les réactions). Avec
 l'implémentation choisie, on remarque que la validité du réseau est
-conditionnée par l'absence des cycles. En effet, s'il existe un cycle il
+conditionnée par l'absence de cycles. En effet, s'il existe un cycle il
 devient alors impossible de calculer les états des neurones appartenant au
 cycle car chaque neurone a besoin des états des autres neurones du cycle.
 
