@@ -1,18 +1,15 @@
 class Stimulus:
-    def __init__(self, name):
-        self.name = name
-        self.outputNeurones = []
+  def __init__(self, name):
+    self.name = name
+    self.outputNeurones = []
 
-    def addNeuron(self, neuron, factor = 1):
-        """ Connects the neuron to the stimulus """
-        if factor > 0:
-          if not neuron in self.outputNeurones:
-            self.outputNeurones += [neuron]
-            neuron.addInputStimulus(self,factor)
-        else:
-          print("Factor have to be positive")
+  def connect(self, neuron, weight):
+    """ Connects the neuron to the stimulus. """
+    self.outputNeurones += [neuron]
+    neuron.addInput(self.name, weight)
 
-    def charge(self, factor):
-        """ Charge all neuron which are connected to the stimulus"""
-        for n in self.outputNeurones:
-            n.charge(factor,self)
+  def update(self, activated=True):
+    """ Sets the stimulus state and updates its ouput neurons. """
+    value = (1.0 if activated else 0.0)
+    for n in self.outputNeurones:
+      n.send(self.name, value)
