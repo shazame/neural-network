@@ -1,0 +1,63 @@
+\section{Implémentation}
+
+\begin{figure}[ht]
+  \centering
+  \input{graphTikZ/reseauAleatoire.tex}
+  \caption{Réseau de neurone à deux neurones}
+  \label{graphInit}
+\end{figure}
+
+\paragraph{}
+Nous pouvons voir sur le schéma \ref{graphInit} que trois types d'objets sont
+présents dans notre conception d'un réseau de neurones:\\
+\begin{description}
+  \item[Les stimuli] Réalisés en rouge sur le schéma, ils génèrent les signaux
+    qui activent les premiers neurones et ainsi active le réseau.
+  \item[Les actions] Affichés en bleu sur le schéma, elles sont les sorties de
+    notre système, elles correspondent à la décision effectué par notre réseau.
+  \item[Les neurones] Cœur même du réseau, ils sont là pour effectuer la prise
+    de décision en fonction des entrées qu'ils possèdent.
+\end{description}
+
+\paragraph{}
+Ces trois éléments sont donc la base de notre réseau, cependant nous avons
+décidé de rendre générique notre réseau et ainsi notre réseau stockera une liste
+de stimuli et de réactions.
+
+\paragraph{}
+Il a ensuite fallu déterminer la façon de parcourir tous les neurones pour les
+mettre à jour. Cette réflexion a fait émerger diverses techniques cependant deux
+avaient un effet similaire avec une base commune (les stimuli sont le départ du
+calcul du réseau) mais modifiaient la façon de considérer chaque
+neurone:\\
+
+\begin{enumerate}
+  \item La première consistait à considérer que chaque neurone connait les
+    neurones qui lui envoient un signal. Il peut donc les interroger, obtenant
+    ainsi les informations nécessaires au calcul de sa sortie.
+  \item La seconde considérait que chaque neurone avait connaissance des neurones
+    concernés par sa sortie, il pouvait donc leur signaler qu'une valeur avait
+    été mise à jour.
+\end{enumerate}
+
+La seconde solution était bloquante pour l'apprentissage, étant donné que les
+poids stockés par le neurone concernent les autres, il nécessitait donc un lien
+autre que ceux acceptés par le standard de neurone.
+
+\paragraph{}
+[A finir]
+
+\paragraph{}
+Ne souhaitant pas attribuer aux neurones des caractéristiques qui ne leur étaient
+pas nécessaires, nous nous sommes demandé ce qui était intrinsèque au
+fonctionnement de l'entité et ce qui relevait de la particularité de notre
+réseau.
+
+\paragraph{}
+Après réflexion nous sommes arrivé à déterminer comme cœur du neurone, les
+parties suivantes:\\
+
+\begin{description}
+  \item[Nom] Nous avons décidé d'attribuer à chaque neurone un nom. Ce dernier
+    est utilisé au moment de l'attribution
+\end{description}
