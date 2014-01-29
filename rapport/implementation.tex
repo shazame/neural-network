@@ -69,7 +69,34 @@ parties suivantes:\\
   \item[Taux d'apprentissage]: le taux de variation des poids du neurone.
 \end{description}
 
-\paragraph{}
-%TODO Apprentissage
+\subsection{Fonction d'activation}
+Les neurones que nous avons implémentés sont des neurones à seuil,
+c'est-à-dire qu'ils accumulent les valeurs des stimuli qu'il reçoivent et se
+déchargent seulement lorsque la somme de ces valeurs dépasse la valeur du
+seuil qu'on leur a donné.
 
+Ainsi la fonction d'activation du neurone correspond à la comparaison de la
+valeur accumulée avec la valeur du seuil. Lorsque la valeur du seuil est
+dépassée, le neurone se décharge et envoie sa valeur de décharge sur toutes
+ses sorties.
 
+Il est existe deux types de neurones, des neurones excitateurs et des
+neurones inhibiteurs. Les neurones excitateurs renvoient 1 lorsqu'ils se
+déchargent et les inhibiteurs envoient -1.
+Les deux types de neurones renvoient 0 lorsque le seuil n'est pas dépassé.
+Cela permet de prévenir leurs sorties de leur mise à jour.
+
+\subsection{Apprentissage}
+Lorsque un neurone se décharge, une mise à jour de la valeur de ses poids
+d'entrée est effectuées en fonction de la valeur ces entrées et de sa valeur
+de retour. Nous avons implémentées les fonctions de mises à jour suivantes,
+en nous inspirant de la méthode de Oja :
+
+$$\Delta w = w_{n+1} - w_{n} = r (x_n - w_n)$$
+où $x_n$ est la valeur de l'entrée, $w_n$ est la valeur du poids et
+$r$ est le taux d'apprentissage.
+
+Ce calcul n'est appliqué de manière à renforcer les liens avec des neurones
+excitateurs lorsqu'ils envoie une valeur égale à 1 et qu'une sortie est
+obtenue et les liens avec les neurones inhibiteurs lorsqu'une valeur de sortie
+de 0 est calculée.
