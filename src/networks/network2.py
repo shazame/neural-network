@@ -46,8 +46,6 @@ network.addNeuron(n3)
 network.addNeuron(n4)
 network.addNeuron(n5)
 network.addNeuron(n6)
-network.addStimulus(s1)
-network.addStimulus(s2)
 
 
 for i in range(10):

@@ -7,11 +7,6 @@ import time
 class NeuralNetwork:
   def __init__(self):
     self.neurones = []
-    self.stimulus = []
-
-  def addStimulus(self, stimulus):
-    """ Add the stimulus given in parameter to the neural network"""
-    self.stimulus += [stimulus]
 
   def addNeuron(self, neuron):
     """ Add the neuron given in parameter to the neural network"""
@@ -71,9 +66,6 @@ if __name__ == "__main__":
   network.addNeuron(n2)
   network.addNeuron(n3)
   network.addNeuron(n4)
-  network.addStimulus(s1)
-  network.addStimulus(s2)
-
 
   for i in range(10):
     if (i % 2) == 0:
