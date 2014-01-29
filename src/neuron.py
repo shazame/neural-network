@@ -3,131 +3,69 @@
 class Neuron:
   def __init__(self, name, isInhibitor = False):
     self.name = name
-    self.inputNeurones = []
-    self.inputFactor = []
-    self.outputNeurones = []
-    self.outputActions = []
-    self.inputStimuli = []
-    self.stimulusFactors = []
-    self.state = 0.0
-    self.nextState = 0.0
-    self.inhibitorFactor = (-1.0 if isInhibitor else 1.0)
+    self.inputWeight = {}
+    self.output = []
+    self.state = 0
+    self.outputValue = (-1 if isInhibitor else 1)
+    self.remainingEntries = 0
 
   def __str__(self):
-    return "(%s) state: %f\toutput: %s \tinput: %s" % (self.name, self.state,
-    ', '.join(n.name for n in self.outputNeurones),
-    ', '.join(n.name for n in self.inputNeurones))
+    return "(%s): %f\toutput: %s \tinput: %s" % (self.name,
+    ', '.join(n.name for n in self.output),
+    str(self.inputWeight))
 
-  def addAction(self, action):
-    self.outputActions += [action]
+  def initialize(self):
+    # Normalize weight
+    weightSum = 0
+    for _, v in self.inputWeight.items():
+      weightSum += v
+    for k, _ in self.inputWeight.items():
+      self.inputWeight[k] /= weightSum
 
-  def connect(self, neuron, factor = 0.5):
-    """ Connects the neuron's output to another neuron. """
-    if factor > 0 :
-      if not neuron in self.outputNeurones:
-        self.outputNeurones += [neuron]
-        neuron.connectFrom(self, factor)
-    else :
-      print("Factor have to be positive")
+    # Init number of entries
+    self.remainingEntries = len(self.inputWeight)
 
-  def connectFrom(self, neuron, factor = 0.5):
-    """ Connects the neuron's input to another neuron. """
-    if factor > 0 :
-      if not neuron in self.inputNeurones:
-        self.inputNeurones += [neuron]
-        self.inputFactor += [factor]
-        neuron.connect(self, factor)
-    else:
-      print("Factor have to be positive")
+  def connect(self, newOutput, weight):
+    """ Connects a neuron to a new output. """
+    self.output += [newOutput]
+    newOutput.addInput(self.name, weight)
 
-  def updateState(self):
-    """ Put the neuron into the next state"""
-    if self.nextState < 0 :
-      self.nextState = 0  
-    self.state = self.nextState
+  def addInput(self, newInputName, weight):
+    """ Add an input to a neuron with a weight.
+    The weight must be positive. """
+    if weight < 0:
+      print("Weight must a positive number.")
+      print("Input is not added.")
+      return
+    self.inputWeight[newInputName] = weight
 
-  def activationFunction(self):
-    """ Function of activation for this neurone """
+  def send(self, senderName, value):
+    """ Update current neuron state and sends neurons's ouputValue 
+    to all its ouput when every input has been taken into account ."""
+    self.state += value * self.inputWeight[senderName]
+    self.remainingEntries -= 1
+    if self.remainingEntries == 0:
+      returnValue = self.computeActivation()
+      for o in self.output:
+        o.send(self.name, returnValue)
+      self.remainingEntries = len(self.inputWeight)
+      # Reset neuron's state
+      self.state = 0
+
+  def computeActivation(self):
+    """ Function of activation for this neurone.
+    Should be implemented by child classes. """
+    return 0
       
-  def charge(self, factor, stimulus=None):
-    """ Charge the neuron """
-    if stimulus == None:
-      self.nextState += factor
-    else:
-      index = self.inputStimuli.index(stimulus)
-      self.nextState += factor * self.stimulusFactors[index]
-
-  def send(self, neuron, stimulus):
-    """ Send a stimuli to the neuron. """
-    index = self.inputNeurones.index(neuron)
-    self.nextState += stimulus * self.inputFactor[index]
-   
-
-  def discharge(self):
-    """ Discharge the neuron, sending stimuli on its outputs. """
-    for a in self.outputActions:
-      a.activate()
-    for o in self.outputNeurones:
-      o.send(self, self.state * self.inhibitorFactor)
-    self.nextState -= self.state
-    if self.nextState < 0 :
-      self.nextState = 0
-
-  def addInputStimulus(self, stimulus, factor = 1):
-    """ Add a new input stimulus to the neuron """
-    if factor > 0 :
-      if not stimulus in self.inputStimuli:
-        self.inputStimuli += [stimulus]
-        self.stimulusFactors += [factor]
-        stimulus.addNeuron(self, factor)
-    else:
-      print("Factor have to be positive")
-
 
 class ThresholdNeuron(Neuron):
   def __init__(self, name, threshold, isInhibitor = False):
     Neuron.__init__(self, name, isInhibitor)
     self.threshold = threshold
 
-  def activationFunction(self):
+  def computeActivation(self):
     """ Function of activation for this neurone """
-    if self.state > self.threshold :
-      self.discharge()
-
-
-if __name__ == "__main__":
-  n1 = Neuron("n1")
-  n2 = ThresholdNeuron("n2",1,True)
-  n3 = ThresholdNeuron("n3",2)
-  n1.connect(n2)
-  n1.connect(n3,2)
-  n2.connect(n3,1)
-
-  print("Set the initial state of n1 to 2:")
-  n1.charge(2.3)
-  n1.updateState()
-  n2.updateState()
-  n3.updateState()
-  print(n1)
-  print(n2)
-  print(n3)
-
-  print("")
-  print("Discharge n1:")
-  n1.discharge()
-  n1.updateState()
-  n2.updateState()
-  n3.updateState()
-  print(n1)
-  print(n2)
-  print(n3)
-
-  print("")
-  print("Discharge n2:")
-  n2.discharge()
-  n1.updateState()
-  n2.updateState()
-  n3.updateState()  
-  print(n1)
-  print(n2)
-  print(n3)
+    if self.state >= self.threshold :
+      return self.outputValue
+    else:
+      return 0
